@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Todo App
+    </ion-title>
+    <ion-buttons end>
+       <button *ngIf="!user" ion-button (click)="login()">Log in</button>
+      <button *ngIf="user" ion-button (click)="signout()">Sign out</button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+
+  <div>{{logStatus}}</div>
+  <br>
+  <div class="row title-row">
+    <div class="cell cell-large">Description</div>
+    <div class="cell cell-large">Owner</div>
+    <div class="cell cell-large">Status</div>
+    <div class="cell">Del</div>
+    <div class="cell">Mod</div>
+  </div>
+
+  <div class="row" *ngFor="let todo of todos | async">
+    <div text-center class="cell cell-large"> {{todo.description}}</div>
+    <div text-center class="cell cell-large"> {{todo.owner}}</div>
+    <div text-center class="cell cell-large"> {{todo.status}}</div>
+    <div class="cell">
+      <button ion-button icon-only color="danger" (click)="delete(todo.$key)">
+       <ion-icon  name="close"></ion-icon>
+     </button>
+    </div>
+    <div class="cell">
+      <button ion-button icon-only (click)="goToModify(todo)">
+        <ion-icon name="more"></ion-icon>
+    </button>
+    </div>
+  </div>
+  <button ion-button block (click)="goToCreate()">Create Todo</button>
+
+</ion-content>
